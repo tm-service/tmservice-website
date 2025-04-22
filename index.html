@@ -150,25 +150,38 @@
   </main>
   <!-- /.main-content -->
 
-  <body onload="init()">
-    <div id="container-div" style="width: 400px; height: 600px"></div>
-    <script type="text/javascript">
-    const containerDiv = document.getElementById("container-div");
-    const instanceURL = "https://ali-dcc-mk.my.connect.aws/ccp-v2/";
-    function init() {
-    connect.core.initCCP(containerDiv, {
-    ccpUrl: instanceURL,
-    loginPopup: true,
-    loginOptions: {
-    autoClose: true,
-    },
-    softphone: {
-    allowFramedSoftphone: true,
-    },
-    });
-    }
+  <body>
+    <div id="container-div" style="width: 400px; height: 600px; margin: 2rem auto;"></div>
+  
+    <script>
+      function init() {
+        const containerDiv = document.getElementById("container-div");
+        const instanceURL = "https://ali-dcc-mk.my.connect.aws/ccp-v2/";
+  
+        if (typeof connect === 'undefined') {
+          console.error("❌ connect.js not loaded yet.");
+          return;
+        }
+  
+        connect.core.initCCP(containerDiv, {
+          ccpUrl: instanceURL,
+          loginPopup: true,
+          loginOptions: { autoClose: true },
+          softphone: { allowFramedSoftphone: true }
+        });
+      }
+  
+      // ✅ ここで connect.js を読み込んでから init() を呼ぶ！
+      const script = document.createElement("script");
+      script.src = "https://ali-dcc-mk.my.connect.aws/connect/ccp.js";
+      script.onload = init;
+      script.onerror = function () {
+        console.error("❌ connect.js failed to load");
+      };
+      document.body.appendChild(script);
     </script>
-    </body>
+  </body>
+  
 
   <footer class="footer">
     <div class="container container--no-spacing">
