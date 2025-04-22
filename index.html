@@ -150,20 +150,22 @@
   </main>
   <!-- /.main-content -->
 
-<!-- CCP埋め込み用 -->
-<div id="ccp-container" style="width: 400px; height: 600px; margin: 2rem auto;"></div>
-
-<!-- CCPスクリプトの読み込みと初期化 -->
-<script src="https://ali-dcc-mk.my.connect.aws/connect/ccp.js"></script>
-<script>
-  connect.core.initCCP(document.getElementById("ccp-container"), {
-    ccpUrl: "https://ali-dcc-mk.my.connect.aws/connect/ccp-v2",
-    loginPopup: true,
-    softphone: {
-      allowFramedSoftphone: true
-    }
-  });
-</script>
+  <script src="https://ali-dcc-mk.my.connect.aws/connect/ccp.js" defer></script>
+  <script defer>
+    window.addEventListener("DOMContentLoaded", function () {
+      if (typeof connect === 'undefined') {
+        console.error("connect.js not loaded yet!");
+        return;
+      }
+      connect.core.initCCP(document.getElementById("ccp-container"), {
+        ccpUrl: "https://ali-dcc-mk.my.connect.aws/connect/ccp-v2",
+        loginPopup: true,
+        softphone: {
+          allowFramedSoftphone: true
+        }
+      });
+    });
+  </script>
 
   <footer class="footer">
     <div class="container container--no-spacing">
