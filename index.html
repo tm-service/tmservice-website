@@ -150,29 +150,25 @@
   </main>
   <!-- /.main-content -->
 
-<!-- CCP埋め込み用 -->
-<div id="ccp-container" style="width: 400px; height: 600px; margin: 2rem auto;"></div>
-
-<!-- connect.js のロード -->
-<script>
-  const script = document.createElement("script");
-  script.src = "https://ali-dcc-mk.my.connect.aws/connect/ccp.js";
-  script.onload = function () {
-    console.log("✅ connect.js loaded!");
-    connect.core.initCCP(document.getElementById("ccp-container"), {
-      ccpUrl: "https://ali-dcc-mk.my.connect.aws/connect/ccp-v2",
-      loginPopup: true,
-      softphone: {
-        allowFramedSoftphone: true
-      }
+  <body onload="init()">
+    <div id="container-div" style="width: 400px; height: 600px"></div>
+    <script type="text/javascript">
+    const containerDiv = document.getElementById("container-div");
+    const instanceURL = "https://ali-dcc-mk.my.connect.aws/ccp-v2/";
+    function init() {
+    connect.core.initCCP(containerDiv, {
+    ccpUrl: instanceURL,
+    loginPopup: true,
+    loginOptions: {
+    autoClose: true,
+    },
+    softphone: {
+    allowFramedSoftphone: true,
+    },
     });
-  };
-  script.onerror = function () {
-    console.error("❌ connect.js failed to load");
-  };
-  document.body.appendChild(script);
-</script>
-
+    }
+    </script>
+    </body>
 
   <footer class="footer">
     <div class="container container--no-spacing">
